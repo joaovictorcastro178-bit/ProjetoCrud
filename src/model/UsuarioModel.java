@@ -8,23 +8,55 @@ public class UsuarioModel {
     private String cpf;
     private String email;
     private String telefone;
-    private int idade;
     private Date nascimento;
-    
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
     
     
 }
-
-
-
-/*
-idUsuario int auto_increment primary key,
-    nome varchar(200) NOT NULL,
-    cpf varchar(14) NOT NULL UNIQUE,
-    email varchar(150) NOT NULL,
-    telefone varchar(150) NOT NULL,
-    idade int NOT NULL,
-    nascimento date NOT NULL
-
-
-*/
