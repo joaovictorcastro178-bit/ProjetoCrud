@@ -9,8 +9,7 @@ public class TesteConexao {
         
         Connection connection = new ConnectionMySql().getConnection();
         
-        JOptionPane.showMessageDialog(null, 
-                "Conexão Estabelecida!");
+        JOptionPane.showMessageDialog(null, "Conexão Estabelecida!");
         
         connection.close();
             
