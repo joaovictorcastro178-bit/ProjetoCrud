@@ -73,6 +73,8 @@ public class UsuarioView extends javax.swing.JFrame {
         jtxTelefone = new javax.swing.JFormattedTextField();
         jtxNascimento = new javax.swing.JFormattedTextField();
         jtxCpf = new javax.swing.JFormattedTextField();
+        jlIDUsuario = new javax.swing.JLabel();
+        jtxIDUsuario = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jbCadastrar = new javax.swing.JButton();
         jbAtualizar = new javax.swing.JButton();
@@ -141,6 +143,11 @@ public class UsuarioView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jlIDUsuario.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        jlIDUsuario.setText("Id:");
+
+        jtxIDUsuario.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -163,10 +170,13 @@ public class UsuarioView extends javax.swing.JFrame {
                             .addComponent(jtxCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                             .addComponent(jtxEmail1))
                         .addGap(18, 18, 18)
-                        .addComponent(jlNascimento1)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlNascimento1)
+                            .addComponent(jlIDUsuario, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtxTelefone)
+                    .addComponent(jtxIDUsuario)
+                    .addComponent(jtxTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                     .addComponent(jtxNascimento))
                 .addContainerGap())
         );
@@ -188,7 +198,9 @@ public class UsuarioView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlCpf1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxIDUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -216,7 +228,7 @@ public class UsuarioView extends javax.swing.JFrame {
                 .addComponent(jbCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jbAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jbLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,6 +266,11 @@ public class UsuarioView extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtUsuarioMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtUsuario);
@@ -313,28 +330,25 @@ public class UsuarioView extends javax.swing.JFrame {
         limpar();
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+    private void jtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtUsuarioMouseClicked
+        if(jtUsuario.getSelectedRow() != -1){
+           
+            
+            jtxIDUsuario.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 0).toString());
+            jtxNome.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 1).toString());
+            jtxCpf.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 2).toString());
+            jtxEmail1.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 3).toString());
+            jtxTelefone.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 4).toString());
+            jtxNascimento.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 5).toString());
+            
+            
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+    }//GEN-LAST:event_jtUsuarioMouseClicked
+    
+    
+    
+    public static void main(String args[]) {
+        
         java.awt.EventQueue.invokeLater(() -> new UsuarioView().setVisible(true));
     }
 
@@ -351,12 +365,14 @@ public class UsuarioView extends javax.swing.JFrame {
     private javax.swing.JLabel jlCadastroTitulo;
     private javax.swing.JLabel jlCpf1;
     private javax.swing.JLabel jlEmail;
+    private javax.swing.JLabel jlIDUsuario;
     private javax.swing.JLabel jlNascimento;
     private javax.swing.JLabel jlNascimento1;
     private javax.swing.JLabel jlNome;
     private javax.swing.JTable jtUsuario;
     private javax.swing.JFormattedTextField jtxCpf;
     private javax.swing.JTextField jtxEmail1;
+    private javax.swing.JTextField jtxIDUsuario;
     private javax.swing.JFormattedTextField jtxNascimento;
     private javax.swing.JTextField jtxNome;
     private javax.swing.JFormattedTextField jtxTelefone;
