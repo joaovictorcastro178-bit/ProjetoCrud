@@ -4,9 +4,9 @@
  */
 package view;
 
-
 import dao.UsuarioDao;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.UsuarioModel;
 import util.Format;
@@ -16,46 +16,43 @@ import util.Format;
  * @author 884648
  */
 public class UsuarioView extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsuarioView.class.getName());
 
-    
     public UsuarioView() {
         initComponents();
         leiaTable();
     }
-    
+
     private Connection connection;
 
-    public void limpar(){
+    public void limpar() {
         jtxNome.setText("");
         jtxEmail1.setText("");
         jtxCpf.setText("");
         jtxTelefone.setText("");
         jtxNascimento.setText("");
     }
-    
-    public void leiaTable(){
-        DefaultTableModel modelo = (DefaultTableModel)jtUsuario.getModel();
+
+    public void leiaTable() {
+        DefaultTableModel modelo = (DefaultTableModel) jtUsuario.getModel();
         modelo.setNumRows(0);
-        
+
         UsuarioDao dao = new UsuarioDao(connection);
-        
-       for(UsuarioModel usuario:dao.leitura()){
-           modelo.addRow(new Object[]{
-                
+
+        for (UsuarioModel usuario : dao.leitura()) {
+            modelo.addRow(new Object[]{
                 usuario.getIdUsuario(),
                 usuario.getNome(),
                 usuario.getCpf(),
                 usuario.getEmail(),
                 usuario.getTelefone(),
                 usuario.getNascimento()
-           });
-            
+            });
+
         }
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,8 +207,10 @@ public class UsuarioView extends javax.swing.JFrame {
         jbCadastrar.addActionListener(this::jbCadastrarActionPerformed);
 
         jbAtualizar.setText("Atualizar");
+        jbAtualizar.addActionListener(this::jbAtualizarActionPerformed);
 
         jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(this::jbExcluirActionPerformed);
 
         jbLimpar.setText("Limpar");
         jbLimpar.addActionListener(this::jbLimparActionPerformed);
@@ -325,30 +324,67 @@ public class UsuarioView extends javax.swing.JFrame {
             dao.adicionar(u);
         } catch (Exception e) {
         }
-        
+
         leiaTable();
         limpar();
     }//GEN-LAST:event_jbCadastrarActionPerformed
 
     private void jtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtUsuarioMouseClicked
-        if(jtUsuario.getSelectedRow() != -1){
-           
-            
+        if (jtUsuario.getSelectedRow() != -1) {
+
             jtxIDUsuario.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 0).toString());
             jtxNome.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 1).toString());
             jtxCpf.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 2).toString());
             jtxEmail1.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 3).toString());
             jtxTelefone.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 4).toString());
             jtxNascimento.setText(jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 5).toString());
-            
-            
+
         }
     }//GEN-LAST:event_jtUsuarioMouseClicked
-    
-    
-    
+
+    private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
+
+        if (jtUsuario.getSelectedRow() != -1) {
+            UsuarioModel u = new UsuarioModel();
+            u.setNome(jtxNome.getText());
+            u.setCpf(jtxCpf.getText());
+            u.setEmail(jtxEmail1.getText());
+            u.setTelefone(jtxTelefone.getText());
+            u.setNascimento(Format.converterSqlDate(jtxNascimento.getText()));
+            u.setIdUsuario((int) jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 0));
+            UsuarioDao dao = new UsuarioDao(connection);
+            dao.atualizar(u);
+            JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso");
+            limpar();
+            leiaTable();
+        }
+    }//GEN-LAST:event_jbAtualizarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        if(jtUsuario.getSelectedRow()!= -1){
+        UsuarioModel u = new UsuarioModel();
+        u.setIdUsuario((int)jtUsuario.getValueAt(jtUsuario.getSelectedRow(), 0));
+        UsuarioDao dao = new UsuarioDao(connection);
+        dao.deletar(u);
+        JOptionPane.showMessageDialog(null, "Usuario excluido com sucesso");
+        limpar();
+        leiaTable();
+        }else{
+                JOptionPane.showMessageDialog(null, "Selecione um usuario");
+                }
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
     public static void main(String args[]) {
-        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
         java.awt.EventQueue.invokeLater(() -> new UsuarioView().setVisible(true));
     }
 
